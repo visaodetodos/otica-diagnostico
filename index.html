@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico — Ótica Visão de Todos MOC</title>
+<style>
+  :root {
+    --verde: #a8e63d;
+    --turquesa: #00c4b4;
+    --azul-escuro: #0a1628;
+    --azul-medio: #0f2040;
+    --azul-card: #152a4a;
+    --azul-borda: #1e3a5f;
+    --texto: #e8f4f8;
+    --texto-muted: #8ba8c4;
+    --vermelho: #ff4d6d;
+    --amarelo: #ffd166;
+    --branco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--azul-escuro);
+    color: var(--texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--azul-escuro); }
+  ::-webkit-scrollbar-thumb { background: var(--turquesa); border-radius: 3px; }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--azul-borda);
+    z-index: 1000;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--verde);
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--texto-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 2rem 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,196,180,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(168,230,61,0.08) 0%, transparent 70%);
+    top: 20%; right: 10%;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,230,61,0.1);
+    border: 1px solid rgba(168,230,61,0.3);
+    color: var(--verde);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 span { color: var(--turquesa); }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--texto-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--verde);
+    display: block;
+  }
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--texto-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .hero-stat-divider {
+    width: 1px;
+    background: var(--azul-borda);
+    align-self: stretch;
+  }
+  .hero-scroll {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--texto-muted);
+    font-size: 0.8rem;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--turquesa), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  section { padding: 80px 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--turquesa);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .section-tag::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--turquesa);
+    display: inline-block;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title span { color: var(--verde); }
+  .section-desc {
+    color: var(--texto-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--azul-borda), transparent);
+    margin: 0 2rem;
+  }
+
+  .card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--turquesa);
+  }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card-text { color: var(--texto-muted); font-size: 0.9rem; line-height: 1.6; }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+
+  .problem-list { display: flex; flex-direction: column; gap: 1rem; }
+  .problem-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-left: 4px solid var(--vermelho);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .problem-item:hover { border-left-color: var(--amarelo); }
+  .problem-num {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--vermelho);
+    min-width: 36px;
+    opacity: 0.7;
+  }
+  .problem-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--branco); }
+  .problem-content p { font-size: 0.85rem; color: var(--texto-muted); }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .metric-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .metric-label { font-size: 0.8rem; color: var(--texto-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric-alert { font-size: 0.75rem; margin-top: 0.3rem; font-weight: 600; }
+  .text-red { color: var(--vermelho); }
+  .text-green { color: var(--verde); }
+  .text-yellow { color: var(--amarelo); }
+  .text-teal { color: var(--turquesa); }
+
+  .reels-chart { display: flex; flex-direction: column; gap: 0.8rem; }
+  .reel-bar-item {
+    display: grid;
+    grid-template-columns: 180px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+  }
+  .reel-bar-label { font-size: 0.85rem; color: var(--texto-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .reel-bar-track { background: var(--azul-borda); border-radius: 100px; height: 10px; overflow: hidden; }
+  .reel-bar-fill { height: 100%; border-radius: 100px; transition: width 1.5s ease; }
+  .reel-bar-fill.best { background: linear-gradient(90deg, var(--turquesa), var(--verde)); }
+  .reel-bar-fill.good { background: var(--turquesa); }
+  .reel-bar-fill.avg { background: var(--azul-borda); }
+  .reel-bar-num { font-size: 0.9rem; font-weight: 700; color: var(--texto); text-align: right; }
+
+  .pilar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; }
+  .pilar-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .pilar-card:hover { transform: translateY(-4px); }
+  .pilar-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .pilar-card.p1::before { background: var(--verde); }
+  .pilar-card.p2::before { background: var(--turquesa); }
+  .pilar-card.p3::before { background: var(--amarelo); }
+  .pilar-card.p4::before { background: #ff6b9d; }
+  .pilar-card.p5::before { background: #a78bfa; }
+  .pilar-card.p6::before { background: #fb923c; }
+  .pilar-pct { font-size: 2rem; font-weight: 900; margin-bottom: 0.3rem; }
+  .pilar-card.p1 .pilar-pct { color: var(--verde); }
+  .pilar-card.p2 .pilar-pct { color: var(--turquesa); }
+  .pilar-card.p3 .pilar-pct { color: var(--amarelo); }
+  .pilar-card.p4 .pilar-pct { color: #ff6b9d; }
+  .pilar-card.p5 .pilar-pct { color: #a78bfa; }
+  .pilar-card.p6 .pilar-pct { color: #fb923c; }
+  .pilar-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .pilar-desc { font-size: 0.82rem; color: var(--texto-muted); }
+
+  .calendar-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+  .cal-day {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 10px;
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  .cal-day-name { color: var(--texto-muted); font-size: 0.7rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+  .cal-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin: 2px 0;
+    width: 100%;
+  }
+  .cal-post { background: rgba(0,196,180,0.2); color: var(--turquesa); }
+  .cal-reel { background: rgba(168,230,61,0.2); color: var(--verde); }
+  .cal-story { background: rgba(255,209,102,0.2); color: var(--amarelo); }
+  .cal-off { background: rgba(255,77,109,0.1); color: var(--texto-muted); }
+
+  .priority-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  .priority-table thead th {
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--texto-muted);
+    text-align: left;
+    font-weight: 600;
+  }
+  .priority-table tbody tr { background: var(--azul-card); border-radius: 10px; }
+  .priority-table tbody td {
+    padding: 1rem;
+    font-size: 0.88rem;
+    border-top: 1px solid var(--azul-borda);
+    border-bottom: 1px solid var(--azul-borda);
+  }
+  .priority-table tbody td:first-child { border-left: 1px solid var(--azul-borda); border-radius: 10px 0 0 10px; }
+  .priority-table tbody td:last-child { border-right: 1px solid var(--azul-borda); border-radius: 0 10px 10px 0; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+  .badge-alta { background: rgba(255,77,109,0.2); color: var(--vermelho); }
+  .badge-media { background: rgba(255,209,102,0.2); color: var(--amarelo); }
+  .badge-baixa { background: rgba(168,230,61,0.15); color: var(--verde); }
+  .badge-facil { background: rgba(0,196,180,0.15); color: var(--turquesa); }
+  .badge-medio { background: rgba(167,139,250,0.2); color: #a78bfa; }
+
+  .top10-list { display: flex; flex-direction: column; gap: 1rem; }
+  .top10-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 14px;
+    padding: 1.3rem 1.5rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .top10-item:hover { border-color: var(--verde); transform: translateX(4px); }
+  .top10-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--verde), var(--turquesa));
+  }
+  .top10-num { font-size: 2rem; font-weight: 900; color: var(--verde); opacity: 0.4; min-width: 40px; line-height: 1; }
+  .top10-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .top10-content p { font-size: 0.85rem; color: var(--texto-muted); line-height: 1.5; }
+
+  .bench-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .bench-card { background: var(--azul-card); border: 1px solid var(--azul-borda); border-radius: 16px; padding: 1.5rem; }
+  .bench-card h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--azul-borda);
+  }
+  .bench-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .bench-list li { font-size: 0.88rem; display: flex; align-items: flex-start; gap: 0.5rem; color: var(--texto-muted); }
+  .bench-list li span { min-width: 16px; }
+
+  .vendas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+  .venda-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .venda-card:hover { transform: translateY(-4px); }
+  .venda-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+  .venda-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--verde); }
+  .venda-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .venda-items li { font-size: 0.82rem; color: var(--texto-muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+  .venda-items li::before { content: '→'; color: var(--turquesa); flex-shrink: 0; margin-top: 1px; }
+
+  /* PROPOSTAS */
+  .propostas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+    padding-top: 1rem;
+  }
+  .proposta-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .proposta-card:hover { transform: translateY(-6px); }
+  .proposta-card.destaque {
+    border-color: var(--verde);
+    box-shadow: 0 0 40px rgba(168,230,61,0.15);
+    padding-top: 2.8rem;
+  }
+  .proposta-popular {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    color: var(--azul-escuro);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 16px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .proposta-nome {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--texto-muted);
+    margin-bottom: 0.8rem;
+  }
+  .proposta-preco {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .proposta-preco sup {
+    font-size: 1.2rem;
+    font-weight: 700;
+    vertical-align: super;
+    line-height: 0;
+  }
+  .proposta-preco .mes {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--texto-muted);
+  }
+  .proposta-card.destaque .proposta-preco { color: var(--verde); }
+  .proposta-card:not(.destaque) .proposta-preco { color: var(--texto); }
+  .proposta-desc {
+    font-size: 0.82rem;
+    color: var(--texto-muted);
+    margin: 0.8rem 0 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--azul-borda);
+  }
+  .proposta-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+    flex: 1;
+  }
+  .proposta-lista li {
+    font-size: 0.85rem;
+    color: var(--texto);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .proposta-lista li .check {
+    color: var(--verde);
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .proposta-lista li .check-muted {
+    color: var(--texto-muted);
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .proposta-lista li span:last-child { color: var(--texto-muted); }
+  .proposta-lista li.destaque-item span:last-child { color: var(--texto); font-weight: 600; }
+  .btn-proposta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-proposta-primary {
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    color: var(--azul-escuro);
+  }
+  .btn-proposta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(168,230,61,0.3); }
+  .btn-proposta-outline {
+    background: transparent;
+    color: var(--texto);
+    border: 1px solid var(--azul-borda);
+  }
+  .btn-proposta-outline:hover { border-color: var(--turquesa); color: var(--turquesa); }
+  .proposta-nota {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--texto-muted);
+    margin-top: 2rem;
+  }
+  .proposta-nota strong { color: var(--turquesa); }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(0,196,180,0.08), rgba(168,230,61,0.08));
+    border: 1px solid rgba(168,230,61,0.2);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,196,180,0.1), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: var(--texto-muted); max-width: 500px; margin: 0 auto 2rem; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    color: var(--azul-escuro);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,196,180,0.3); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--texto);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid var(--azul-borda);
+    transition: border-color 0.2s;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  .btn-secondary:hover { border-color: var(--turquesa); }
+
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--azul-borda);
+    color: var(--texto-muted);
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--verde); }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  .highlight-box {
+    background: rgba(0,196,180,0.08);
+    border: 1px solid rgba(0,196,180,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .highlight-box strong { color: var(--turquesa); }
+
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid var(--azul-borda);
+    background: transparent;
+    color: var(--texto-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn.active, .tab-btn:hover { background: var(--turquesa); border-color: var(--turquesa); color: var(--azul-escuro); font-weight: 700; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .ideia-list { display: flex; flex-direction: column; gap: 1rem; }
+  .ideia-item {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .ideia-item:hover { border-color: var(--turquesa); }
+  .ideia-header { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
+  .ideia-title { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 0.7rem; }
+  .ideia-num { font-size: 0.75rem; color: var(--texto-muted); min-width: 24px; }
+  .ideia-expand { color: var(--texto-muted); font-size: 1.2rem; transition: transform 0.3s; }
+  .ideia-item.open .ideia-expand { transform: rotate(45deg); color: var(--turquesa); }
+  .ideia-body {
+    display: none;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--azul-borda);
+    font-size: 0.85rem;
+    color: var(--texto-muted);
+  }
+  .ideia-item.open .ideia-body { display: block; }
+  .ideia-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .ideia-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(0,196,180,0.1);
+    color: var(--turquesa);
+  }
+  .ideia-cta { margin-top: 0.7rem; color: var(--verde); font-weight: 700; font-size: 0.85rem; }
+
+  .score-bar-wrap { margin: 0.5rem 0 0; }
+  .score-bar-track { background: var(--azul-borda); border-radius: 100px; height: 6px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 100px; }
+  .score-label { font-size: 0.75rem; color: var(--texto-muted); margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    section { padding: 60px 1.2rem; }
+    .calendar-week { grid-template-columns: repeat(4, 1fr); }
+    .reel-bar-item { grid-template-columns: 120px 1fr 50px; }
+    .btn-secondary { margin-left: 0; margin-top: 0.8rem; }
+    .cta-section { padding: 2.5rem 1.5rem; }
+    .priority-table thead { display: none; }
+    .priority-table tbody tr { display: flex; flex-direction: column; margin-bottom: 1rem; }
+    .priority-table tbody td { border: none !important; border-radius: 0 !important; padding: 0.5rem 1rem; }
+    .priority-table tbody td:first-child { border-radius: 10px 10px 0 0 !important; padding-top: 1rem; }
+    .priority-table tbody td:last-child { border-radius: 0 0 10px 10px !important; padding-bottom: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-icon">👁</div>
+      Visão de Todos
+    </a>
+    <ul class="nav-links">
+      <li><a href="#diagnostico">Diagnóstico</a></li>
+      <li><a href="#problemas">Problemas</a></li>
+      <li><a href="#estrategia">Estratégia</a></li>
+      <li><a href="#ideias">Ideias</a></li>
+      <li><a href="#prioridades">Prioridades</a></li>
+      <li><a href="#top10">Top 10</a></li>
+      <li><a href="#propostas" style="color:var(--verde); font-weight:700;">Propostas</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <div class="hero-badge">📊 Diagnóstico Estratégico · Junho 2026</div>
+    <h1>Instagram da <em>Visão de Todos</em><br>tem potencial — e está<br><span>sendo desperdiçado.</span></h1>
+    <p class="hero-sub">Analisamos profundamente seu perfil, identificamos os problemas críticos e criamos um plano de ação completo para transformar o Instagram em canal de vendas real.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">411</span>
+        <span class="hero-stat-label">Seguidores atuais</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" style="color:var(--vermelho)">≈0</span>
+        <span class="hero-stat-label">Curtidas por post</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">143</span>
+        <span class="hero-stat-label">Posts publicados</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" style="color:var(--amarelo)">329</span>
+        <span class="hero-stat-label">Melhor alcance (reel)</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Rolar para ver a análise</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIAGNÓSTICO DO PERFIL -->
+<section id="diagnostico">
+  <div class="container">
+    <div class="section-tag reveal">Análise do Perfil</div>
+    <h2 class="section-title reveal">O que encontramos no<br><span>seu Instagram</span></h2>
+    <p class="section-desc reveal">Uma análise cirúrgica de cada elemento do seu perfil, com base em benchmarks do setor óptico.</p>
+
+    <div class="metric-grid reveal">
+      <div class="metric-card">
+        <span class="metric-value" style="color:var(--texto-muted)">411</span>
+        <span class="metric-label">Seguidores</span>
+        <div class="metric-alert text-yellow">▲ Potencial inexplorado</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-red">≈0</span>
+        <span class="metric-label">Curtidas/post</span>
+        <div class="metric-alert text-red">✕ Crítico</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-red">&lt;0.5%</span>
+        <span class="metric-label">Taxa de engajamento</span>
+        <div class="metric-alert text-red">✕ Abaixo do mínimo</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-yellow">3</span>
+        <span class="metric-label">Destaques ativos</span>
+        <div class="metric-alert text-yellow">▲ Ideal: 7–8</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-green">329</span>
+        <span class="metric-label">Views no melhor reel</span>
+        <div class="metric-alert text-green">✓ Potencial confirmado</div>
+      </div>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <span class="card-icon">📝</span>
+        <div class="card-title">Bio — Nota <span class="text-yellow">4/10</span></div>
+        <div class="card-text">
+          A bio atual não comunica diferenciais claros nem possui CTA (chamada para ação). Falta mencionar benefícios concretos para o cliente, como convênios aceitos, serviço de entrega ou atendimento especializado.
+          <div class="score-bar-wrap">
+            <div class="score-label"><span>Eficácia atual</span><span class="text-yellow">40%</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:40%; background: var(--amarelo);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🖼</span>
+        <div class="card-title">Feed Visual — Nota <span class="text-yellow">5/10</span></div>
+        <div class="card-text">
+          Posts sem identidade visual consistente. Fundo branco, texto pequeno e fotos genéricas se misturam sem padrão. O cliente não reconhece a marca ao rolar o feed.
+          <div class="score-bar-wrap">
+            <div class="score-label"><span>Consistência visual</span><span class="text-yellow">50%</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:50%; background: var(--amarelo);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎬</span>
+        <div class="card-title">Reels — Nota <span class="text-green">7/10</span></div>
+        <div class="card-text">
+          Melhor formato do perfil: reel de 329 views prova que o alcance orgânico funciona. Porém, frequência irregular e falta de gancho (hook) nos primeiros 3 segundos limitam o crescimento.
+          <div class="score-bar-wrap">
+            <div class="score-label"><span>Performance relativa</span><span class="text-green">70%</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:70%; background: var(--verde);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-icon">✨</span>
+        <div class="card-title">Destaques — Nota <span class="text-red">3/10</span></div>
+        <div class="card-text">
+          Apenas 3 destaques ativos (ideal: 7–8). Faltam categorias essenciais: Serviços, Convênios, Antes e Depois, Depoimentos e Promoções. As capas dos destaques não têm identidade visual.
+          <div class="score-bar-wrap">
+            <div class="score-label"><span>Completude</span><span class="text-red">30%</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:30%; background: var(--vermelho);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:2rem;">
+      <div class="card-title" style="margin-bottom:1.5rem;">📊 Performance dos Reels — Top 6</div>
+      <div class="reels-chart">
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Promoção armação + lente</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill best" style="width:100%"></div></div>
+          <span class="reel-bar-num text-green">329</span>
+        </div>
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Dica de cuidados com óculos</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill good" style="width:68%"></div></div>
+          <span class="reel-bar-num text-teal">224</span>
+        </div>
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Nova coleção chegando</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill good" style="width:52%"></div></div>
+          <span class="reel-bar-num text-teal">171</span>
+        </div>
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Transformação: antes e depois</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill avg" style="width:38%"></div></div>
+          <span class="reel-bar-num">125</span>
+        </div>
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Moda verão — tendências</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill avg" style="width:28%"></div></div>
+          <span class="reel-bar-num">92</span>
+        </div>
+        <div class="reel-bar-item">
+          <span class="reel-bar-label">Depoimento cliente</span>
+          <div class="reel-bar-track"><div class="reel-bar-fill avg" style="width:19%"></div></div>
+          <span class="reel-bar-num">63</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top:1.5rem;">
+        <strong>Insight:</strong> Conteúdo de promoção + oferta concreta gera 5× mais alcance que conteúdo genérico. Reels com preço visível têm melhor performance.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEMAS CRÍTICOS -->
+<section id="problemas" style="background: rgba(255,77,109,0.03);">
+  <div class="container">
+    <div class="section-tag reveal">Diagnóstico</div>
+    <h2 class="section-title reveal">Os <span>7 problemas críticos</span><br>que travam seu crescimento</h2>
+    <p class="section-desc reveal">Cada um desses problemas custa seguidores, engajamento e vendas todo mês.</p>
+
+    <div class="problem-list reveal">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h4>Ausência de consistência visual</h4>
+          <p>O feed parece feito por pessoas diferentes a cada semana. Sem paleta, tipografia ou identidade definida, a marca não é reconhecida instantaneamente. Resultado: o usuário passa sem pausar.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h4>Frequência de publicação irregular</h4>
+          <p>Semanas sem posts seguidas de rajadas de conteúdo. O algoritmo do Instagram pune essa irregularidade reduzindo o alcance orgânico. Meta mínima: 4–5 publicações por semana.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h4>Nenhum CTA nas publicações</h4>
+          <p>Posts bonitos que não pedem nada: nem "comente", nem "mande mensagem", nem "clique no link". Sem CTA, o usuário não age, não engaja e não compra.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h4>Sem estratégia de stories diários</h4>
+          <p>Stories são o principal canal de relacionamento no Instagram. A ausência diária faz o perfil "sumir" do topo do feed dos seguidores, perdendo visibilidade contínua.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">05</div>
+        <div class="problem-content">
+          <h4>Bio sem proposta de valor clara</h4>
+          <p>A bio é a primeira coisa que um visitante vê. Sem mencionar diferenciais (convênios, entrega, qualidade), a taxa de conversão de visitante para seguidor é mínima.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">06</div>
+        <div class="problem-content">
+          <h4>Falta de prova social (depoimentos e resultados)</h4>
+          <p>Clientes satisfeitos existem, mas seus depoimentos não aparecem. Prova social é o maior gatilho de conversão para óticas, especialmente para quem está pesquisando antes de comprar.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">07</div>
+        <div class="problem-content">
+          <h4>Sem integração com WhatsApp e vendas</h4>
+          <p>O Instagram não está sendo usado como pré-venda. Não há link de WhatsApp com mensagem pré-preenchida, nem posts que direcionem o cliente para o próximo passo da compra.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ESTRATÉGIA — 6 PILARES -->
+<section id="estrategia">
+  <div class="container">
+    <div class="section-tag reveal">Plano de Ação</div>
+    <h2 class="section-title reveal">A estratégia em<br><span>6 pilares</span></h2>
+    <p class="section-desc reveal">Framework completo para transformar o Instagram da Visão de Todos em máquina de atração e vendas.</p>
+
+    <div class="pilar-grid reveal">
+      <div class="pilar-card p1">
+        <div class="pilar-pct">01</div>
+        <div class="pilar-name">Identidade Visual</div>
+        <div class="pilar-desc">Padronizar paleta, fontes, templates e capas de destaques. Criar um feed reconhecível em menos de 2 segundos.</div>
+      </div>
+      <div class="pilar-card p2">
+        <div class="pilar-pct">02</div>
+        <div class="pilar-name">Calendário Editorial</div>
+        <div class="pilar-desc">Publicação planejada: 1 reel/semana, 3 posts/semana, stories diários. Cada formato com objetivo claro.</div>
+      </div>
+      <div class="pilar-card p3">
+        <div class="pilar-pct">03</div>
+        <div class="pilar-name">Conteúdo de Valor</div>
+        <div class="pilar-desc">Dicas de saúde visual, tendências de armações, cuidados com lentes — conteúdo que o público salva e compartilha.</div>
+      </div>
+      <div class="pilar-card p4">
+        <div class="pilar-pct">04</div>
+        <div class="pilar-name">Prova Social</div>
+        <div class="pilar-desc">Depoimentos em vídeo, antes e depois de clientes, avaliações Google transformadas em posts. Credibilidade visível.</div>
+      </div>
+      <div class="pilar-card p5">
+        <div class="pilar-pct">05</div>
+        <div class="pilar-name">Vendas Diretas</div>
+        <div class="pilar-desc">Posts de oferta com preço, CTA para WhatsApp, promoções sazonais e campanhas de urgência que convertem.</div>
+      </div>
+      <div class="pilar-card p6">
+        <div class="pilar-pct">06</div>
+        <div class="pilar-name">Engajamento Ativo</div>
+        <div class="pilar-desc">Responder comentários, usar caixinha de perguntas nos stories, enquetes semanais — construir comunidade local.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;" class="reveal">
+      <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.5rem;">📅 Calendário Editorial — Semana Modelo</h3>
+      <div class="calendar-week">
+        <div class="cal-day">
+          <div class="cal-day-name">Seg</div>
+          <span class="cal-tag cal-reel">Reel Dica</span>
+          <span class="cal-tag cal-story">Story</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Ter</div>
+          <span class="cal-tag cal-story">Story</span>
+          <span class="cal-tag cal-story">Enquete</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Qua</div>
+          <span class="cal-tag cal-post">Post Oferta</span>
+          <span class="cal-tag cal-story">Story</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Qui</div>
+          <span class="cal-tag cal-story">Story</span>
+          <span class="cal-tag cal-post">Carrossel</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Sex</div>
+          <span class="cal-tag cal-reel">Reel Produto</span>
+          <span class="cal-tag cal-story">Story CTA</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Sáb</div>
+          <span class="cal-tag cal-post">Post Depoimento</span>
+          <span class="cal-tag cal-story">Story</span>
+        </div>
+        <div class="cal-day">
+          <div class="cal-day-name">Dom</div>
+          <span class="cal-tag cal-story">Story Bastidor</span>
+          <span class="cal-tag cal-off">Descanso</span>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Regra de ouro:</strong> Todo post deve ter pelo menos 1 CTA explícito. Stories devem ser publicados todos os dias — mesmo que seja uma foto simples.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- IDEIAS DE CONTEÚDO -->
+<section id="ideias">
+  <div class="container">
+    <div class="section-tag reveal">Banco de Ideias</div>
+    <h2 class="section-title reveal">30 ideias de conteúdo<br><span>prontas para usar</span></h2>
+    <p class="section-desc reveal">Clique em cada ideia para ver o roteiro completo. Organizado por formato e objetivo.</p>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" onclick="switchTab(event,'reels')">🎬 Reels</button>
+      <button class="tab-btn" onclick="switchTab(event,'posts')">🖼 Posts</button>
+      <button class="tab-btn" onclick="switchTab(event,'stories')">✨ Stories</button>
+    </div>
+
+    <div class="tab-content active" id="tab-reels">
+      <div class="ideia-list">
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">01</span> 🔥 "3 erros que destroem seus óculos"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Educativo</span><span class="ideia-tag">Alto alcance</span><span class="ideia-tag">30–60s</span></div>
+            <p><strong>Hook:</strong> "Você provavelmente está cometendo pelo menos 1 desses erros com seus óculos agora mesmo…"<br><br>
+            <strong>Conteúdo:</strong> 1) Limpar com a camiseta — risca as lentes; 2) Guardar sem o case — amassa a armação; 3) Colocar de cabeça para baixo — entorta as hastes.<br><br>
+            <strong>CTA:</strong> "Vem até a Visão de Todos regular seus óculos — grátis!"</p>
+            <div class="ideia-cta">→ Filmar em 30 segundos, mostrar os erros na prática</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">02</span> 💰 "Montagem completa por R$X — olha o que você leva"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Vendas</span><span class="ideia-tag">Oferta</span><span class="ideia-tag">15–30s</span></div>
+            <p><strong>Hook:</strong> "Por R$[PREÇO] você leva ISSO tudo na Visão de Todos…"<br><br>
+            <strong>Conteúdo:</strong> Mostrar armação + lente + case + limpador. Destacar o valor vs. o preço cobrado.<br><br>
+            <strong>CTA:</strong> "Manda 'QUERO' no nosso WhatsApp e garanta o seu hoje!"</p>
+            <div class="ideia-cta">→ Gravar a mão montando o kit na bancada</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">03</span> 👓 "Que tipo de óculos combina com seu rosto?"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Educativo</span><span class="ideia-tag">Salvável</span><span class="ideia-tag">45–60s</span></div>
+            <p><strong>Hook:</strong> "Para de escolher óculos errado — aprenda em 1 minuto"<br><br>
+            <strong>Conteúdo:</strong> Rosto oval → qualquer formato; Rosto quadrado → redondo ou oval; Rosto redondo → retangular ou quadrado; Rosto coração → aviador ou cat-eye.<br><br>
+            <strong>CTA:</strong> "Comenta o formato do seu rosto e te indico o modelo perfeito!"</p>
+            <div class="ideia-cta">→ Usar cartazes ou sobrepor texto nos formatos de rosto</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">04</span> 🌅 "Antes e depois: transformação completa"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Prova Social</span><span class="ideia-tag">Emocional</span><span class="ideia-tag">30s</span></div>
+            <p><strong>Hook:</strong> "Olha a diferença que o óculos certo faz…"<br><br>
+            <strong>Conteúdo:</strong> Foto/vídeo do cliente antes (óculos antigo ou sem óculos) → depois com a nova armação. Mostrar a confiança e o sorriso.<br><br>
+            <strong>CTA:</strong> "Quer a sua transformação? Manda mensagem!"</p>
+            <div class="ideia-cta">→ Pedir permissão ao cliente e registrar na hora do atendimento</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">05</span> 📦 "Chegou novidade! Unboxing de coleção"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Produto</span><span class="ideia-tag">Novidade</span><span class="ideia-tag">30–45s</span></div>
+            <p><strong>Hook:</strong> "Acabou de chegar e já estou apaixonado — olha só…"<br><br>
+            <strong>Conteúdo:</strong> Abrir a caixa com os novos modelos, mostrar detalhes, experimentar na câmera.<br><br>
+            <strong>CTA:</strong> "Qual é o seu favorito? Comenta o número!"</p>
+            <div class="ideia-cta">→ Filmar na horizontal com boa iluminação natural</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-posts">
+      <div class="ideia-list">
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">01</span> ⭐ Carrossel: "5 sinais que você precisa trocar de óculos"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Educativo</span><span class="ideia-tag">Carrossel</span><span class="ideia-tag">Alto salvamento</span></div>
+            <p>Slide 1: Título impactante. Slides 2–6: Dor de cabeça frequente, visão embaçada, riscos nas lentes, armação torta, mais de 2 anos sem consulta. Slide 7: CTA para agendar consulta.</p>
+            <div class="ideia-cta">→ Carrosséis geram 3× mais saves que posts simples</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">02</span> 🏷 Post de Oferta: Promoção com preço visível</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Vendas</span><span class="ideia-tag">Conversão</span><span class="ideia-tag">Urgência</span></div>
+            <p>Layout limpo: foto do produto + preço em destaque + prazo da promoção. Nunca esconda o preço — clientes que perguntam preço raramente compram. Mostrar gera credibilidade.</p>
+            <div class="ideia-cta">→ Publicar toda quarta-feira como "Oferta da Semana"</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">03</span> 💬 Post de Depoimento: Print de cliente satisfeito</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Prova Social</span><span class="ideia-tag">Confiança</span></div>
+            <p>Transformar avaliações do Google ou mensagens de WhatsApp em posts. Usar template com fundo escuro, foto do cliente (com permissão) e destaque na frase mais impactante.</p>
+            <div class="ideia-cta">→ Pedir avaliação para cada cliente após a venda</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">04</span> 📸 Post de Produto: Foto profissional da armação</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Produto</span><span class="ideia-tag">Catálogo</span></div>
+            <p>Fundo branco ou madeira clara, boa iluminação, 3 ângulos diferentes. Descrição com nome da marca, material, formato e preço. Hashtags locais: #oticamoc #mocambique.</p>
+            <div class="ideia-cta">→ Usar luz natural da janela — não precisa de estúdio</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">05</span> 🎯 Carrossel: Convênios aceitos + como usar</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Informativo</span><span class="ideia-tag">Alto alcance</span></div>
+            <p>Muita gente não sabe que pode usar o plano de saúde na ótica. Criar carrossel com logos dos convênios aceitos + passo a passo para usar. Forte diferencial competitivo.</p>
+            <div class="ideia-cta">→ Fixar no feed — posts de convênio têm alta busca orgânica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-stories">
+      <div class="ideia-list">
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">01</span> 🗳 Enquete: "Qual você prefere? A ou B?"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Engajamento</span><span class="ideia-tag">Interativo</span></div>
+            <p>Mostrar dois modelos de armação e usar a ferramenta de enquete. Gera engajamento fácil, sinaliza para o algoritmo que o perfil é ativo, e ainda dá insight sobre preferências do público.</p>
+            <div class="ideia-cta">→ Fazer toda terça-feira para criar hábito no seguidor</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">02</span> 🎤 Caixinha: "Me pergunta sobre óculos"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Autoridade</span><span class="ideia-tag">Relacionamento</span></div>
+            <p>Abrir caixinha de perguntas sobre saúde visual, armações ou convênios. Responder no próximo story. Posiciona a ótica como especialista e gera conteúdo sem esforço criativo.</p>
+            <div class="ideia-cta">→ Usar as melhores perguntas como pauta para reels</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">03</span> 📲 Story de bastidor: "Dia a dia da ótica"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Humanização</span><span class="ideia-tag">Confiança</span></div>
+            <p>Mostrar a equipe chegando, organizando o estoque, atendendo clientes (com permissão). Humaniza a marca e cria conexão emocional. Pessoas compram de pessoas que conhecem.</p>
+            <div class="ideia-cta">→ 1 story de bastidor por dia — 15 segundos é suficiente</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">04</span> ⏰ Contagem regressiva de promoção</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Urgência</span><span class="ideia-tag">Vendas</span></div>
+            <p>Usar o adesivo de contagem regressiva para promoções com prazo. "Promoção acaba em X horas!" Seguidores podem ativar notificação para quando acabar — gera lembrete automático.</p>
+            <div class="ideia-cta">→ Combinar com oferta do feed para multiplicar o alcance</div>
+          </div>
+        </div>
+        <div class="ideia-item" onclick="toggleIdeia(this)">
+          <div class="ideia-header">
+            <div class="ideia-title"><span class="ideia-num">05</span> 💌 Story de direcionamento: "Link no WhatsApp"</div>
+            <span class="ideia-expand">+</span>
+          </div>
+          <div class="ideia-body">
+            <div class="ideia-meta"><span class="ideia-tag">Conversão</span><span class="ideia-tag">WhatsApp</span></div>
+            <p>"Quer esse modelo? Clica no link da bio e fala com a gente no WhatsApp — respondemos em até 5 minutos!" Criar link wa.me com mensagem pré-preenchida para facilitar o contato.</p>
+            <div class="ideia-cta">→ Publicar toda sexta para capturar clientes do fim de semana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BENCHMARK -->
+<section style="background: rgba(0,196,180,0.03);">
+  <div class="container">
+    <div class="section-tag reveal">Benchmarks</div>
+    <h2 class="section-title reveal">O que as melhores<br><span>óticas fazem no Instagram</span></h2>
+    <p class="section-desc reveal">Analisamos perfis de óticas de referência para extrair os padrões que funcionam.</p>
+
+    <div class="bench-grid reveal">
+      <div class="bench-card">
+        <h4 style="color:var(--verde)">✅ O que elas fazem certo</h4>
+        <ul class="bench-list">
+          <li><span>→</span> Postam 5–7 vezes por semana sem exceção</li>
+          <li><span>→</span> Stories diários com interação (enquete, pergunta)</li>
+          <li><span>→</span> Reels com hook nos primeiros 3 segundos</li>
+          <li><span>→</span> Preço visível em todas as ofertas</li>
+          <li><span>→</span> Depoimentos em vídeo toda semana</li>
+          <li><span>→</span> Identidade visual imediatamente reconhecível</li>
+          <li><span>→</span> Link de WhatsApp ativo na bio sempre</li>
+          <li><span>→</span> 8+ destaques com capas profissionais</li>
+        </ul>
+      </div>
+      <div class="bench-card">
+        <h4 style="color:var(--vermelho)">❌ Erros que elas evitam</h4>
+        <ul class="bench-list">
+          <li><span>→</span> Posts sem CTA ("o que você achou?", "manda mensagem")</li>
+          <li><span>→</span> Ficar dias sem postar nada</li>
+          <li><span>→</span> Fotos de baixa qualidade ou com fundo bagunçado</li>
+          <li><span>→</span> Não responder comentários e DMs</li>
+          <li><span>→</span> Copiar conteúdo genérico sem adaptar para a cidade</li>
+          <li><span>→</span> Ignorar datas comemorativas e sazonalidades</li>
+          <li><span>→</span> Bio sem informações de contato e localização</li>
+        </ul>
+      </div>
+      <div class="bench-card">
+        <h4 style="color:var(--turquesa)">📊 Métricas de referência</h4>
+        <ul class="bench-list">
+          <li><span>→</span> Engajamento mínimo saudável: <strong style="color:var(--verde)">3–5%</strong></li>
+          <li><span>→</span> Crescimento mensal típico: <strong style="color:var(--verde)">+50–200</strong> seguidores</li>
+          <li><span>→</span> Frequência de reels: <strong style="color:var(--verde)">3–4/semana</strong></li>
+          <li><span>→</span> Taxa de resposta a DMs: <strong style="color:var(--verde)">&lt;2 horas</strong></li>
+          <li><span>→</span> Stories por dia: <strong style="color:var(--verde)">3–7 frames</strong></li>
+          <li><span>→</span> Saves por carrossel: <strong style="color:var(--verde)">2–5%</strong> dos alcançados</li>
+          <li><span>→</span> Destaques ativos: <strong style="color:var(--verde)">7–10</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VENDAS DIRETAS -->
+<section id="vendas">
+  <div class="container">
+    <div class="section-tag reveal">Conversão em Vendas</div>
+    <h2 class="section-title reveal">Como transformar<br><span>seguidores em clientes</span></h2>
+    <p class="section-desc reveal">O Instagram só vale a pena se gerar movimento na loja. Veja o sistema completo de conversão.</p>
+
+    <div class="vendas-grid reveal">
+      <div class="venda-card">
+        <span class="venda-icon">🔗</span>
+        <div class="venda-title">Bio Otimizada</div>
+        <ul class="venda-items">
+          <li>Link de WhatsApp com mensagem pré-escrita</li>
+          <li>Endereço completo ou link do Maps</li>
+          <li>Horário de funcionamento visível</li>
+          <li>Proposta de valor em 1 linha</li>
+        </ul>
+      </div>
+      <div class="venda-card">
+        <span class="venda-icon">📣</span>
+        <div class="venda-title">Posts de Oferta</div>
+        <ul class="venda-items">
+          <li>Preço visível e destacado</li>
+          <li>Prazo de validade da promoção</li>
+          <li>CTA claro: "Manda mensagem agora"</li>
+          <li>Publicar toda quarta-feira</li>
+        </ul>
+      </div>
+      <div class="venda-card">
+        <span class="venda-icon">⭐</span>
+        <div class="venda-title">Prova Social Ativa</div>
+        <ul class="venda-items">
+          <li>Pedir avaliação a cada cliente</li>
+          <li>Transformar prints em posts</li>
+          <li>Vídeo de depoimento 1× por semana</li>
+          <li>Destaque exclusivo para avaliações</li>
+        </ul>
+      </div>
+      <div class="venda-card">
+        <span class="venda-icon">🎯</span>
+        <div class="venda-title">Gatilhos de Urgência</div>
+        <ul class="venda-items">
+          <li>Contagem regressiva nos stories</li>
+          <li>"Últimas unidades disponíveis"</li>
+          <li>Promoção exclusiva para seguidores</li>
+          <li>Black Friday e datas comemorativas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:1rem;">
+      <strong>Funil completo:</strong> Reel de valor → Seguidor → Story de oferta → DM no WhatsApp → Visita à loja → Venda → Depoimento → Novo reel. Cada peça de conteúdo serve a uma etapa desse funil.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRIORIDADES -->
+<section id="prioridades">
+  <div class="container">
+    <div class="section-tag reveal">Plano de Execução</div>
+    <h2 class="section-title reveal">Prioridades por<br><span>impacto e esforço</span></h2>
+    <p class="section-desc reveal">O que fazer primeiro, segundo e terceiro — ordenado por retorno sobre o esforço.</p>
+
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="priority-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ação</th>
+            <th>Prioridade</th>
+            <th>Esforço</th>
+            <th>Impacto esperado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Reescrever a bio</strong> com proposta de valor + link WhatsApp</td>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td><span class="badge badge-facil">Fácil</span></td>
+            <td>+30% conversão de visitante</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Criar 8 destaques</strong> com capas padronizadas</td>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td><span class="badge badge-facil">Fácil</span></td>
+            <td>Profissionalismo imediato</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Postar stories diários</strong> — começar amanhã</td>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td><span class="badge badge-facil">Fácil</span></td>
+            <td>Mais visibilidade no feed</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Publicar 1 reel por semana</strong> com hook nos 3s iniciais</td>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td><span class="badge badge-medio">Médio</span></td>
+            <td>Crescimento orgânico de seguidores</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Coletar 5 depoimentos</strong> em vídeo de clientes</td>
+            <td><span class="badge badge-media">Média</span></td>
+            <td><span class="badge badge-medio">Médio</span></td>
+            <td>Prova social e credibilidade</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Criar identidade visual</strong> com templates no Canva</td>
+            <td><span class="badge badge-media">Média</span></td>
+            <td><span class="badge badge-medio">Médio</span></td>
+            <td>Feed reconhecível e profissional</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Publicar post de oferta</strong> com preço toda quarta</td>
+            <td><span class="badge badge-media">Média</span></td>
+            <td><span class="badge badge-facil">Fácil</span></td>
+            <td>Conversão direta em vendas</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>Responder 100% dos comentários</strong> e DMs em até 2h</td>
+            <td><span class="badge badge-media">Média</span></td>
+            <td><span class="badge badge-facil">Fácil</span></td>
+            <td>Engajamento e confiança</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOP 10 AÇÕES -->
+<section id="top10">
+  <div class="container">
+    <div class="section-tag reveal">Resumo Executivo</div>
+    <h2 class="section-title reveal">Top 10 ações para<br><span>os próximos 30 dias</span></h2>
+    <p class="section-desc reveal">Se você só puder fazer 10 coisas, que sejam essas. Em ordem de impacto.</p>
+
+    <div class="top10-list reveal">
+      <div class="top10-item">
+        <div class="top10-num">01</div>
+        <div class="top10-content">
+          <h4>Reescrever a bio hoje</h4>
+          <p>Incluir proposta de valor clara, convênios aceitos, link de WhatsApp com mensagem pré-preenchida e endereço. Tempo necessário: 15 minutos.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">02</div>
+        <div class="top10-content">
+          <h4>Criar e publicar 8 destaques com capas</h4>
+          <p>Categorias: Produtos, Promoções, Convênios, Depoimentos, Serviços, Antes e Depois, Novidades, Contato. Usar Canva para as capas.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">03</div>
+        <div class="top10-content">
+          <h4>Gravar e publicar 1 reel esta semana</h4>
+          <p>Tema: "3 erros que destroem seus óculos". Hook forte nos primeiros 3 segundos. Câmera do celular + boa luz natural já são suficientes.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">04</div>
+        <div class="top10-content">
+          <h4>Iniciar stories diários — sem exceção</h4>
+          <p>Mínimo: 3 stories por dia. Pode ser simples: uma foto de produto, uma enquete rápida, um bastidor de 15 segundos. O hábito é o que importa.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">05</div>
+        <div class="top10-content">
+          <h4>Publicar primeiro post de oferta com preço</h4>
+          <p>Escolher o produto com melhor custo-benefício, tirar foto com boa luz, inserir preço em destaque e CTA para WhatsApp. Publicar na quarta-feira.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">06</div>
+        <div class="top10-content">
+          <h4>Coletar 3 depoimentos em vídeo esta semana</h4>
+          <p>Pedir a clientes satisfeitos um vídeo de 30–60 segundos contando a experiência. Oferecer pequeno desconto ou brinde como incentivo.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">07</div>
+        <div class="top10-content">
+          <h4>Criar template visual no Canva</h4>
+          <p>Escolher 2 cores principais, 1 fonte para títulos, 1 para texto. Criar templates para: post de produto, carrossel, oferta e depoimento. Salvar e reutilizar.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">08</div>
+        <div class="top10-content">
+          <h4>Publicar carrossel "Convênios aceitos"</h4>
+          <p>Um dos posts mais salvos e compartilhados para óticas. Muita gente não sabe que pode usar o plano. Esse post atrai clientes novos organicamente.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">09</div>
+        <div class="top10-content">
+          <h4>Responder todos os comentários antigos em aberto</h4>
+          <p>Ir nos últimos 30 posts e responder todo comentário sem resposta. Isso reativa o algoritmo nos posts antigos e mostra que o perfil está ativo.</p>
+        </div>
+      </div>
+      <div class="top10-item">
+        <div class="top10-num">10</div>
+        <div class="top10-content">
+          <h4>Definir meta para 90 dias e acompanhar semanalmente</h4>
+          <p>Meta sugerida: 800 seguidores, 3% de engajamento, 5 vendas via Instagram por semana. Anotar os números toda segunda-feira para medir progresso real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROPOSTAS COMERCIAIS -->
+<section id="propostas" style="background: rgba(168,230,61,0.02);">
+  <div class="container">
+    <div class="section-tag reveal">Investimento</div>
+    <h2 class="section-title reveal">Escolha o plano ideal<br><span>para a Visão de Todos</span></h2>
+    <p class="section-desc reveal">Três propostas com escopo claro, baseadas nos valores médios de mercado para gestão de redes sociais no Brasil em 2026.</p>
+
+    <div class="propostas-grid reveal">
+
+      <!-- PLANO ESSENCIAL -->
+      <div class="proposta-card">
+        <div class="proposta-nome">Plano Essencial</div>
+        <div class="proposta-preco"><sup>R$</sup>840<span class="mes">/mês</span></div>
+        <div class="proposta-desc">Ideal para começar com consistência e profissionalismo sem abrir mão da qualidade.</div>
+        <ul class="proposta-lista">
+          <li><span class="check">✓</span><span>12 posts/mês no feed</span></li>
+          <li><span class="check">✓</span><span>4 reels/mês</span></li>
+          <li><span class="check">✓</span><span>Calendário editorial mensal</span></li>
+          <li><span class="check">✓</span><span>1 relatório de desempenho/mês</span></li>
+          <li><span class="check-muted">–</span><span>Campanhas sazonais</span></li>
+          <li><span class="check-muted">–</span><span>Reunião estratégica</span></li>
+        </ul>
+        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Essencial de gestão do Instagram (R$840/mês). Podemos conversar?" class="btn-proposta btn-proposta-outline" target="_blank">Quero este plano</a>
+      </div>
+
+      <!-- PLANO PROFISSIONAL (destaque) -->
+      <div class="proposta-card destaque">
+        <div class="proposta-popular">⭐ Mais Popular</div>
+        <div class="proposta-nome">Plano Profissional</div>
+        <div class="proposta-preco"><sup>R$</sup>1.119<span class="mes">/mês</span></div>
+        <div class="proposta-desc">O equilíbrio perfeito entre volume, qualidade e gestão ativa. Recomendado para a Visão de Todos neste momento.</div>
+        <ul class="proposta-lista">
+          <li class="destaque-item"><span class="check">✓</span><span>16 posts/mês no feed</span></li>
+          <li class="destaque-item"><span class="check">✓</span><span>8 reels/mês</span></li>
+          <li class="destaque-item"><span class="check">✓</span><span>Calendário editorial mensal</span></li>
+          <li class="destaque-item"><span class="check">✓</span><span>2 relatórios de desempenho/mês</span></li>
+          <li class="destaque-item"><span class="check">✓</span><span>1 campanha sazonal/mês</span></li>
+          <li><span class="check-muted">–</span><span>Reunião estratégica mensal</span></li>
+        </ul>
+        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Profissional de gestão do Instagram (R$1.119/mês). Podemos conversar?" class="btn-proposta btn-proposta-primary" target="_blank">Quero este plano</a>
+      </div>
+
+      <!-- PLANO PREMIUM -->
+      <div class="proposta-card">
+        <div class="proposta-nome">Plano Premium</div>
+        <div class="proposta-preco"><sup>R$</sup>1.868<span class="mes">/mês</span></div>
+        <div class="proposta-desc">Gestão completa, estratégia avançada e presença dominante na região. Para quem quer crescer rápido.</div>
+        <ul class="proposta-lista">
+          <li><span class="check">✓</span><span>Posts ilimitados no feed</span></li>
+          <li><span class="check">✓</span><span>12 reels/mês</span></li>
+          <li><span class="check">✓</span><span>Gestão de DMs, comentários e WhatsApp Business</span></li>
+          <li><span class="check">✓</span><span>Relatório semanal com métricas detalhadas</span></li>
+          <li><span class="check">✓</span><span>Campanhas sazonais ilimitadas</span></li>
+          <li><span class="check">✓</span><span>Reunião estratégica mensal (1h)</span></li>
+          <li><span class="check">✓</span><span>1 sessão de fotografia dos produtos/mês</span></li>
+        </ul>
+        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Premium de gestão do Instagram (R$1.868/mês). Podemos conversar?" class="btn-proposta btn-proposta-outline" target="_blank">Quero este plano</a>
+      </div>
+
+    </div>
+
+    <div class="proposta-nota reveal">
+      Todos os planos incluem contrato mensal sem fidelidade no primeiro mês. <strong>Dúvidas? Fale pelo WhatsApp.</strong>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="container">
+    <div class="cta-section reveal">
+      <div class="hero-badge" style="display:inline-flex; margin-bottom:1.5rem;">🚀 Próximos Passos</div>
+      <h2>Pronto para transformar o<br><em>Instagram em canal de vendas?</em></h2>
+      <p>Todas as ferramentas, estratégias e ideias estão aqui. O próximo passo é agir — a concorrência não está esperando.</p>
+      <div>
+        <a href="https://wa.me/?text=Olá! Vi o diagnóstico estratégico e quero começar a implementar as ações." class="btn-primary" target="_blank">
+          💬 Falar no WhatsApp
+        </a>
+        <a href="#propostas" class="btn-secondary">💼 Ver Propostas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Diagnóstico Estratégico — <strong>Ótica Visão de Todos MOC</strong> · Junho 2026</p>
+  <p style="margin-top:0.5rem; font-size:0.78rem;">Análise produzida com base em dados do perfil e benchmarks do setor óptico.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function switchTab(e, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  function toggleIdeia(el) {
+    el.classList.toggle('open');
+  }
+
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.reel-bar-fill').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => { bar.style.width = w; }, 100);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.reels-chart').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>
