@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding & Boas-Vindas · Ótica Visão de Todos</title>
+<style>
+  :root {
+    --verde: #a8e63d;
+    --turquesa: #00c4b4;
+    --azul-escuro: #0a1628;
+    --azul-medio: #0f2040;
+    --azul-card: #152a4a;
+    --azul-borda: #1e3a5f;
+    --texto: #e8f4f8;
+    --texto-muted: #8ba8c4;
+    --vermelho: #ff4d6d;
+    --amarelo: #ffd166;
+    --branco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--azul-escuro);
+    color: var(--texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--azul-escuro); }
+  ::-webkit-scrollbar-thumb { background: var(--turquesa); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--azul-borda);
+    z-index: 1000;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--verde);
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--texto-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-muted) !important;
+    font-size: 0.82rem !important;
+    border: 1px solid var(--azul-borda);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: border-color 0.2s, color 0.2s !important;
+  }
+  .nav-back:hover { border-color: var(--turquesa); color: var(--turquesa) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 2rem 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,196,180,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(168,230,61,0.08) 0%, transparent 70%);
+    top: 20%; right: 10%;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,230,61,0.1);
+    border: 1px solid rgba(168,230,61,0.3);
+    color: var(--verde);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 span { color: var(--turquesa); }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--texto-muted);
+    font-size: 1.1rem;
+    max-width: 620px;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--verde);
+    display: block;
+  }
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--texto-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .hero-stat-divider {
+    width: 1px;
+    background: var(--azul-borda);
+    align-self: stretch;
+  }
+  .hero-scroll {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--texto-muted);
+    font-size: 0.8rem;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--turquesa), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* LAYOUT */
+  section { padding: 80px 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--turquesa);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .section-tag::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--turquesa);
+    display: inline-block;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title span { color: var(--verde); }
+  .section-desc {
+    color: var(--texto-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--azul-borda), transparent);
+    margin: 0 2rem;
+  }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+  /* CARD BASE */
+  .card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--turquesa); }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card-text { color: var(--texto-muted); font-size: 0.9rem; line-height: 1.6; }
+
+  .highlight-box {
+    background: rgba(0,196,180,0.08);
+    border: 1px solid rgba(0,196,180,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .highlight-box strong { color: var(--turquesa); }
+
+  .highlight-box.warning {
+    background: rgba(255,209,102,0.07);
+    border-color: rgba(255,209,102,0.3);
+  }
+  .highlight-box.warning strong { color: var(--amarelo); }
+
+  /* FASES */
+  .fases-list { display: flex; flex-direction: column; gap: 1rem; }
+  .fase-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    align-items: center;
+    gap: 1.2rem;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .fase-card:hover { transform: translateX(4px); }
+  .fase-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+  .fase-card.concluido::before { background: var(--verde); }
+  .fase-card.aguardando::before { background: var(--amarelo); }
+  .fase-card.producao::before { background: var(--turquesa); }
+  .fase-card.proxima::before { background: var(--azul-borda); }
+  .fase-num {
+    font-size: 2rem;
+    font-weight: 900;
+    opacity: 0.25;
+    line-height: 1;
+  }
+  .fase-card.concluido .fase-num { color: var(--verde); opacity: 0.5; }
+  .fase-card.aguardando .fase-num { color: var(--amarelo); opacity: 0.5; }
+  .fase-card.producao .fase-num { color: var(--turquesa); opacity: 0.5; }
+  .fase-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .fase-body .fase-periodo { font-size: 0.78rem; color: var(--texto-muted); margin-bottom: 0.4rem; }
+  .fase-body p { font-size: 0.85rem; color: var(--texto-muted); line-height: 1.5; }
+  .fase-status {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .status-concluido { background: rgba(168,230,61,0.15); color: var(--verde); }
+  .status-aguardando { background: rgba(255,209,102,0.15); color: var(--amarelo); }
+  .status-producao { background: rgba(0,196,180,0.15); color: var(--turquesa); }
+  .status-proxima { background: rgba(139,168,196,0.1); color: var(--texto-muted); }
+
+  /* PLATAFORMA / PRINTS */
+  .fluxo-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .fluxo-step {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 14px;
+    padding: 1.3rem;
+    position: relative;
+    text-align: center;
+  }
+  .fluxo-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--turquesa), var(--verde));
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--azul-escuro);
+    margin-bottom: 0.8rem;
+  }
+  .fluxo-step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .fluxo-step p { font-size: 0.8rem; color: var(--texto-muted); line-height: 1.5; }
+
+  .prints-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .print-wrap { display: flex; flex-direction: column; }
+  .print-frame {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    border: 1px solid var(--azul-borda);
+    border-bottom: none;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    background: #f5f5f5;
+    position: relative;
+  }
+  .print-frame::before {
+    content: '';
+    display: block;
+    height: 32px;
+    background: #e8e8e8;
+    border-bottom: 1px solid #d0d0d0;
+    background-image: radial-gradient(circle, #ff5f57 6px, transparent 6px),
+                      radial-gradient(circle, #febc2e 6px, transparent 6px),
+                      radial-gradient(circle, #28c840 6px, transparent 6px);
+    background-position: 14px center, 32px center, 50px center;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+  }
+  .print-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .print-caption {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-top: 2px solid var(--turquesa);
+    padding: 1rem 1.2rem;
+    border-radius: 0 0 16px 16px;
+  }
+  .print-caption strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin-bottom: 0.3rem;
+  }
+  .print-caption span { font-size: 0.8rem; color: var(--texto-muted); }
+
+  /* ENTREGAS */
+  .entrega-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .entrega-card:hover { transform: translateY(-6px); border-color: var(--verde); }
+  .entrega-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--verde), var(--turquesa));
+  }
+  .entrega-num {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .entrega-tipo { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .entrega-desc { font-size: 0.88rem; color: var(--texto-muted); line-height: 1.6; }
+  .entrega-detalhe {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1.2rem;
+    background: rgba(0,196,180,0.1);
+    border: 1px solid rgba(0,196,180,0.2);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    color: var(--turquesa);
+    font-weight: 600;
+  }
+
+  /* CHECKLIST */
+  .checklist-list { display: flex; flex-direction: column; gap: 1rem; }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.3rem 1.5rem;
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 14px;
+    transition: border-color 0.3s;
+  }
+  .checklist-item:hover { border-color: var(--turquesa); }
+  .check-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-icon.pendente {
+    background: rgba(255,209,102,0.1);
+    border: 2px solid rgba(255,209,102,0.4);
+    color: var(--amarelo);
+  }
+  .check-icon.opcional {
+    background: rgba(139,168,196,0.1);
+    border: 2px dashed rgba(139,168,196,0.3);
+    color: var(--texto-muted);
+  }
+  .checklist-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .checklist-content p { font-size: 0.83rem; color: var(--texto-muted); line-height: 1.5; }
+  .checklist-content .check-tag {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .tag-pendente { background: rgba(255,209,102,0.15); color: var(--amarelo); }
+  .tag-opcional { background: rgba(139,168,196,0.1); color: var(--texto-muted); }
+
+  /* GRAVAÇÕES */
+  .gravacao-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 20px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .gravacao-info h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .gravacao-info p { font-size: 0.9rem; color: var(--texto-muted); line-height: 1.7; }
+  .gravacao-agenda { display: flex; flex-direction: column; gap: 1rem; }
+  .agenda-item {
+    background: var(--azul-medio);
+    border: 1px solid var(--azul-borda);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+  }
+  .agenda-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--turquesa);
+    margin-bottom: 0.5rem;
+  }
+  .agenda-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .agenda-btn {
+    padding: 5px 14px;
+    border: 1px solid var(--azul-borda);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    background: transparent;
+    color: var(--texto-muted);
+    cursor: default;
+  }
+  .agenda-btn.highlight {
+    border-color: var(--turquesa);
+    color: var(--turquesa);
+    background: rgba(0,196,180,0.07);
+  }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(0,196,180,0.08), rgba(168,230,61,0.08));
+    border: 1px solid rgba(168,230,61,0.2);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,196,180,0.1), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: var(--texto-muted); max-width: 500px; margin: 0 auto 2rem; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    color: var(--azul-escuro);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,196,180,0.3); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--texto);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid var(--azul-borda);
+    transition: border-color 0.2s;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  .btn-secondary:hover { border-color: var(--turquesa); }
+
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--azul-borda);
+    color: var(--texto-muted);
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--verde); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* PRAZO BANNER */
+  .prazo-banner {
+    background: linear-gradient(135deg, rgba(255,209,102,0.1), rgba(255,77,109,0.06));
+    border: 1px solid rgba(255,209,102,0.3);
+    border-radius: 14px;
+    padding: 1.2rem 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .prazo-icon { font-size: 2rem; flex-shrink: 0; }
+  .prazo-text strong { color: var(--amarelo); display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .prazo-text span { font-size: 0.85rem; color: var(--texto-muted); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    section { padding: 60px 1.2rem; }
+    .fase-card { grid-template-columns: 44px 1fr; }
+    .fase-status { display: none; }
+    .gravacao-card { grid-template-columns: 1fr; gap: 1.5rem; }
+    .btn-secondary { margin-left: 0; margin-top: 0.8rem; }
+    .cta-section { padding: 2.5rem 1.5rem; }
+    .prints-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-icon">👁</div>
+      Visão de Todos
+    </a>
+    <ul class="nav-links">
+      <li><a href="#cronograma">Cronograma</a></li>
+      <li><a href="#plataforma">Plataforma</a></li>
+      <li><a href="#entregas">Entregas</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+      <li><a href="index.html" class="nav-back">← Diagnóstico</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <div class="hero-badge">🎉 Onboarding & Boas-Vindas · Junho 2026</div>
+    <h1>Bem-vindo ao seu novo<br><em>ecossistema de marketing</em><br><span>digital.</span></h1>
+    <p class="hero-sub">
+      A partir de agora, construímos e fortalecemos juntos a presença digital da sua unidade da Ótica Visão de Todos — com foco em reconhecimento local, autoridade no segmento óptico e vendas recorrentes na loja física.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" style="color:var(--verde)">✓ F1</span>
+        <span class="hero-stat-label">Fase 1 Concluída</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" style="color:var(--amarelo)">06/07</span>
+        <span class="hero-stat-label">Prazo da Estratégia</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">12</span>
+        <span class="hero-stat-label">Posts/mês no Feed</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">6</span>
+        <span class="hero-stat-label">Reels/mês</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Rolar para ver o cronograma</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CRONOGRAMA DE IMPLANTAÇÃO -->
+<section id="cronograma">
+  <div class="container">
+    <div class="section-tag reveal">Cronograma</div>
+    <h2 class="section-title reveal">Implantação em<br><span>4 fases</span></h2>
+    <p class="section-desc reveal">Cada fase tem um objetivo claro e entregas definidas. Acompanhe onde estamos no processo.</p>
+
+    <div class="prazo-banner reveal">
+      <div class="prazo-icon">⏳</div>
+      <div class="prazo-text">
+        <strong>Nota de Alinhamento Contratual</strong>
+        <span>Contagem iniciada em 25/06 · Prazo de 8 dias corridos para entrega da Estratégia Inicial de Conteúdo · <strong style="color:var(--amarelo)">Data limite: 06/07/2026</strong></span>
+      </div>
+    </div>
+
+    <div class="fases-list reveal">
+      <div class="fase-card concluido">
+        <div class="fase-num">01</div>
+        <div class="fase-body">
+          <div class="fase-periodo">19/06 a 25/06</div>
+          <h4>Fase 1 — Entrada</h4>
+          <p>Assinatura do contrato, compensação financeira e preenchimento do Briefing de Sondagem Inicial. Todas as etapas desta fase foram concluídas com sucesso.</p>
+        </div>
+        <span class="fase-status status-concluido">✓ Concluído</span>
+      </div>
+
+      <div class="fase-card aguardando">
+        <div class="fase-num">02</div>
+        <div class="fase-body">
+          <div class="fase-periodo">A partir de hoje</div>
+          <h4>Fase 2 — Conexão</h4>
+          <p>Preenchimento do Formulário de Aprofundamento e liberação de acessos técnicos: perfil do Instagram, Meta Business Suite e Banco de Ativos da Franquia.</p>
+        </div>
+        <span class="fase-status status-aguardando">⏳ Aguardando</span>
+      </div>
+
+      <div class="fase-card producao">
+        <div class="fase-num">03</div>
+        <div class="fase-body">
+          <div class="fase-periodo">Até 06/07</div>
+          <h4>Fase 3 — Estratégia</h4>
+          <p>Análise profunda do público-alvo, criação das Linhas Editoriais e montagem do Calendário de Conteúdo completo do Mês 01. Em produção pela equipe de social media.</p>
+        </div>
+        <span class="fase-status status-producao">🔄 Em Produção</span>
+      </div>
+
+      <div class="fase-card proxima">
+        <div class="fase-num">04</div>
+        <div class="fase-body">
+          <div class="fase-periodo">Mensal · Após aprovação</div>
+          <h4>Fase 4 — Go-Live</h4>
+          <p>Início oficial das postagens diárias em Stories, 12 publicações no Feed e 6 Reels distribuídos estrategicamente ao longo do mês.</p>
+        </div>
+        <span class="fase-status status-proxima">→ Próxima Etapa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLATAFORMA DE APROVAÇÃO -->
+<section id="plataforma" style="background: rgba(0,196,180,0.03);">
+  <div class="container">
+    <div class="section-tag reveal">Plataforma</div>
+    <h2 class="section-title reveal">Como funciona o sistema<br><span>de aprovação de conteúdo</span></h2>
+    <p class="section-desc reveal">Você tem controle total sobre cada peça antes de ir ao ar. Nenhum post publica sem o seu aval.</p>
+
+    <div class="fluxo-steps reveal">
+      <div class="fluxo-step">
+        <div class="fluxo-step-num">01</div>
+        <h4>Acesso ao Portal</h4>
+        <p>Você recebe um link exclusivo e seguro para visualizar todo o planejamento do mês em um calendário interativo.</p>
+      </div>
+      <div class="fluxo-step">
+        <div class="fluxo-step-num">02</div>
+        <h4>Visualização das Peças</h4>
+        <p>Veja a miniatura exata de como a imagem ficará no Instagram, com a legenda final e sugestões de hashtags.</p>
+      </div>
+      <div class="fluxo-step">
+        <div class="fluxo-step-num">03</div>
+        <h4>Aprovação com 1 Clique</h4>
+        <p>Se arte e texto estiverem aprovados, basta clicar em "Aprovado". Simples e rápido, direto da plataforma.</p>
+      </div>
+      <div class="fluxo-step">
+        <div class="fluxo-step-num">04</div>
+        <h4>Ajustes e Comentários</h4>
+        <p>Quer mudar algo? Escreva sua observação na caixa de comentários. Fazemos a alteração e você é notificado.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal">
+      <strong>Seu link de acesso:</strong> Você receberá o link da plataforma assim que a Fase 3 (Estratégia) estiver concluída. Ele dará acesso ao calendário completo do Mês 01 para aprovação.
+    </div>
+
+    <!-- PRINTS DA PLATAFORMA -->
+    <h3 style="font-size:1.2rem; font-weight:700; margin: 2.5rem 0 1.5rem;" class="reveal">📸 Veja como a plataforma funciona na prática</h3>
+
+    <div class="prints-grid reveal">
+      <div class="print-wrap">
+        <div class="print-frame">
+          <img src="print1.png" alt="Calendário de conteúdo com link exclusivo do cliente" loading="lazy">
+        </div>
+        <div class="print-caption">
+          <strong>Calendário do mês com link exclusivo</strong>
+          <span>Ao acessar seu link, você vê o calendário completo dos conteúdos planejados. As etapas do projeto são exibidas diretamente no calendário — Assinatura, Briefing, Entradas e Prazos.</span>
+        </div>
+      </div>
+
+      <div class="print-wrap">
+        <div class="print-frame">
+          <img src="print2.png" alt="Visão geral do calendário de julho com etapas e prazos" loading="lazy">
+        </div>
+        <div class="print-caption">
+          <strong>Visão geral com etapas e prazos</strong>
+          <span>O calendário mostra o progresso do projeto (0/4 concluídos, 0% aprovados) e marca visualmente o prazo de entrega da estratégia, para que você acompanhe em tempo real.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ENTREGAS MENSAIS -->
+<section id="entregas">
+  <div class="container">
+    <div class="section-tag reveal">Entregas Mensais</div>
+    <h2 class="section-title reveal">O que você recebe<br><span>todo mês</span></h2>
+    <p class="section-desc reveal">Volume fixo de conteúdo produzido, planejado e entregue para aprovação mensalmente.</p>
+
+    <div class="grid-2 reveal">
+      <div class="entrega-card">
+        <span class="entrega-num">12</span>
+        <div class="entrega-tipo">Posts no Feed por Mês</div>
+        <p class="entrega-desc">
+          Design clean e sofisticado dividido entre carrosséis educativos sobre saúde visual, imagens de posicionamento institucional, ofertas e depoimentos de clientes.
+        </p>
+        <div class="entrega-detalhe">📅 3 posts por semana</div>
+      </div>
+
+      <div class="entrega-card">
+        <span class="entrega-num">6</span>
+        <div class="entrega-tipo">Reels por Mês</div>
+        <p class="entrega-desc">
+          Vídeos dinâmicos em formato vertical para atração e alcance orgânico. Conteúdo de valor, promoções e humanização da marca — tudo com hook nos primeiros 3 segundos.
+        </p>
+        <div class="entrega-detalhe">🔄 Alternado: 2 semanas + 1 semana</div>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:1rem;">
+      <strong>Frequência de Reels:</strong> A distribuição é alternada — 2 Reels em uma semana e 1 Reel na semana seguinte — garantindo presença constante sem sobrecarregar a produção.
+    </div>
+
+    <div class="grid-3 reveal" style="margin-top:2rem;">
+      <div class="card">
+        <span class="card-icon">📖</span>
+        <div class="card-title">Carrosséis Educativos</div>
+        <p class="card-text">Dicas de saúde visual, cuidados com lentes, guias de escolha de armação — conteúdo que o público salva e compartilha, gerando alcance orgânico.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏛️</span>
+        <div class="card-title">Posicionamento Institucional</div>
+        <p class="card-text">Posts que reforçam a identidade da marca, os valores da Visão de Todos e o diferencial do atendimento consultivo na sua unidade.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📲</span>
+        <div class="card-title">Stories Diários</div>
+        <p class="card-text">Bastidores, enquetes, CTAs para WhatsApp e conteúdo de relacionamento — para manter a marca presente no topo do feed dos seguidores todo dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CHECKLIST TÉCNICO -->
+<section id="checklist" style="background: rgba(255,77,109,0.02);">
+  <div class="container">
+    <div class="section-tag reveal">Ação Necessária</div>
+    <h2 class="section-title reveal">Checklist técnico<br><span>de liberação de acessos</span></h2>
+    <p class="section-desc reveal">Para configurar as ferramentas de agendamento, monitoramento e impulsionamento local, precisamos que você libere os acessos abaixo.</p>
+
+    <div class="checklist-list reveal">
+      <div class="checklist-item">
+        <div class="check-icon pendente">📸</div>
+        <div class="checklist-content">
+          <h4>Perfil do Instagram</h4>
+          <p>Link do perfil e usuário de acesso (@). Recomendamos criar uma senha provisória de transição durante o período de configuração, a ser alterada após a integração.</p>
+          <span class="check-tag tag-pendente">Aguardando preenchimento</span>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="check-icon pendente">🌐</div>
+        <div class="checklist-content">
+          <h4>Gerenciador de Negócios (Meta Business Suite)</h4>
+          <p>Convidar o e-mail da Social Media como Administrador ou Parceiro diretamente no seu Business Manager. Isso permite configurar agendamentos, métricas e impulsionamentos.</p>
+          <span class="check-tag tag-pendente">Aguardando convite</span>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="check-icon opcional">📦</div>
+        <div class="checklist-content">
+          <h4>Banco de Materiais da Franquia</h4>
+          <p>Como a franquia fornece fotos, vídeos e campanhas nacionais prontos, precisamos do link do Drive ou Portal da Franquia para triagem e adaptação local dos materiais.</p>
+          <span class="check-tag tag-opcional">Opcional · Se disponível</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box warning reveal" style="margin-top:1.5rem;">
+      <strong>⚠️ Importante:</strong> Os acessos técnicos são necessários para que a Fase 4 (Go-Live) possa iniciar no prazo. Quanto antes liberados, mais ágil será o processo de configuração e publicação.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANEJAMENTO DE GRAVAÇÕES -->
+<section id="gravacoes">
+  <div class="container">
+    <div class="section-tag reveal">Produção Local</div>
+    <h2 class="section-title reveal">Planejamento de<br><span>gravações na loja</span></h2>
+    <p class="section-desc reveal">Para Reels e humanização de Stories, realizamos uma sessão de captação presencial — focada em mostrar o seu espaço e equipe.</p>
+
+    <div class="gravacao-card reveal">
+      <div class="gravacao-info">
+        <h3>📹 Sessão de Captação Presencial</h3>
+        <p>
+          Como a franquia já fornece excelentes materiais institucionais, nossa produção local será focada em humanizar o seu espaço. Iremos registrar a equipe em atendimento, a vitrine, os bastidores e a experiência consultiva da loja.
+        </p>
+        <p style="margin-top:1rem;">
+          Enviaremos os roteiros e ideias de gravação previamente para que a equipe esteja preparada no dia agendado.
+        </p>
+        <div class="highlight-box" style="margin-top:1.2rem; margin-bottom:0;">
+          <strong>Retorno esperado:</strong> Após confirmar os dados de acesso (Fase 2), entraremos em contato para agendar a data ideal de captação.
+        </div>
+      </div>
+
+      <div class="gravacao-agenda">
+        <div class="agenda-item">
+          <div class="agenda-label">📅 Dias preferenciais da semana</div>
+          <div class="agenda-options">
+            <span class="agenda-btn">Segunda</span>
+            <span class="agenda-btn">Terça</span>
+            <span class="agenda-btn highlight">Quarta</span>
+            <span class="agenda-btn highlight">Quinta</span>
+            <span class="agenda-btn">Sexta</span>
+            <span class="agenda-btn">Sábado</span>
+          </div>
+        </div>
+
+        <div class="agenda-item">
+          <div class="agenda-label">🕐 Melhor horário (turno)</div>
+          <div class="agenda-options">
+            <span class="agenda-btn highlight">Manhã</span>
+            <span class="agenda-btn highlight">Tarde</span>
+            <span class="agenda-btn">Alternativo</span>
+          </div>
+        </div>
+
+        <div style="padding: 0.8rem 0; font-size:0.8rem; color:var(--texto-muted);">
+          💡 Preferimos horários de menor movimento para captar com mais qualidade e sem interromper o atendimento.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="container">
+    <div class="cta-section reveal">
+      <div class="hero-badge" style="display:inline-flex; margin-bottom:1.5rem;">🚀 Próximos Passos</div>
+      <h2>Pronto para dar o<br><em>próximo passo?</em></h2>
+      <p>Preencha o checklist de acessos e aguarde o contato da equipe para alinhar as próximas etapas. A estratégia completa chega até 06/07.</p>
+      <div>
+        <a href="https://wa.me/?text=Olá! Acabei de ver o Manual de Onboarding e quero agilizar a liberação dos acessos." class="btn-primary" target="_blank">
+          💬 Falar no WhatsApp
+        </a>
+        <a href="index.html" class="btn-secondary">📊 Ver Diagnóstico</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Manual de Onboarding & Boas-Vindas · <strong>Ótica Visão de Todos MOC</strong> · Junho 2026</p>
+  <p style="margin-top:0.5rem; font-size:0.78rem;">Estratégia de Posicionamento Digital · Parceria Estratégica Local / Nacional</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
