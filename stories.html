@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Stories — Ótica Visão de Todos</title>
+<style>
+  :root {
+    --verde: #a8e63d;
+    --turquesa: #00c4b4;
+    --azul-escuro: #0a1628;
+    --azul-medio: #0f2040;
+    --azul-card: #152a4a;
+    --azul-borda: #1e3a5f;
+    --texto: #e8f4f8;
+    --texto-muted: #8ba8c4;
+    --vermelho: #ff4d6d;
+    --amarelo: #ffd166;
+    --branco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--azul-escuro);
+    color: var(--texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--azul-escuro); }
+  ::-webkit-scrollbar-thumb { background: var(--turquesa); border-radius: 3px; }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--azul-borda);
+    z-index: 1000;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--verde);
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--texto-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-muted) !important;
+    font-size: 0.82rem !important;
+    border: 1px solid var(--azul-borda);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: border-color 0.2s, color 0.2s !important;
+  }
+  .nav-back:hover { border-color: var(--turquesa); color: var(--turquesa) !important; }
+
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 130px 2rem 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,196,180,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(168,230,61,0.08) 0%, transparent 70%);
+    top: 20%; right: 10%;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,230,61,0.1);
+    border: 1px solid rgba(168,230,61,0.3);
+    color: var(--verde);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 span { color: var(--turquesa); }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--texto-muted);
+    font-size: 1.1rem;
+    max-width: 620px;
+    margin: 0 auto 1rem;
+  }
+
+  section { padding: 80px 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--turquesa);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .section-tag::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--turquesa);
+    display: inline-block;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title span { color: var(--verde); }
+  .section-desc {
+    color: var(--texto-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--azul-borda), transparent);
+    margin: 0 2rem;
+  }
+
+  .card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--turquesa);
+  }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card-text { color: var(--texto-muted); font-size: 0.9rem; line-height: 1.6; }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .metric-card {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .metric-label { font-size: 0.8rem; color: var(--texto-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .text-red { color: var(--vermelho); }
+  .text-green { color: var(--verde); }
+  .text-yellow { color: var(--amarelo); }
+  .text-teal { color: var(--turquesa); }
+
+  .highlight-box {
+    background: rgba(0,196,180,0.08);
+    border: 1px solid rgba(0,196,180,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .highlight-box strong { color: var(--turquesa); }
+
+  .ideia-list { display: flex; flex-direction: column; gap: 1rem; }
+  .ideia-item {
+    background: var(--azul-card);
+    border: 1px solid var(--azul-borda);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .ideia-item:hover { border-color: var(--turquesa); }
+  .ideia-header { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
+  .ideia-title { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 0.7rem; }
+  .ideia-num { font-size: 0.75rem; color: var(--texto-muted); min-width: 24px; }
+  .ideia-expand { color: var(--texto-muted); font-size: 1.2rem; transition: transform 0.3s; }
+  .ideia-item.open .ideia-expand { transform: rotate(45deg); color: var(--turquesa); }
+  .ideia-body {
+    display: none;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--azul-borda);
+    font-size: 0.85rem;
+    color: var(--texto-muted);
+  }
+  .ideia-item.open .ideia-body { display: block; }
+  .ideia-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .ideia-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(0,196,180,0.1);
+    color: var(--turquesa);
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, rgba(0,196,180,0.08), rgba(168,230,61,0.08));
+    border: 1px solid rgba(168,230,61,0.2);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,196,180,0.1), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: var(--texto-muted); max-width: 500px; margin: 0 auto 2rem; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--verde), var(--turquesa));
+    color: var(--azul-escuro);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,196,180,0.3); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--texto);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid var(--azul-borda);
+    transition: border-color 0.2s;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  .btn-secondary:hover { border-color: var(--turquesa); }
+
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--azul-borda);
+    color: var(--texto-muted);
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--verde); }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .nav-links { gap: 0.8rem; }
+    section { padding: 60px 1.2rem; }
+    .btn-secondary { margin-left: 0; margin-top: 0.8rem; }
+    .cta-section { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">👁</div>
+      Visão de Todos
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-back">← Diagnóstico</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <div class="hero-badge">📱 Guia Prático de Stories</div>
+    <h1>Ative a Presença Digital<br>da Sua <em>Ótica</em></h1>
+    <p class="hero-sub">Como manter seu perfil vivo, engajar clientes e vender mais todos os dias — preparado especialmente para a Ótica Visão de Todos.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GUIA DE STORIES -->
+<section id="stories">
+  <div class="container">
+    <div class="section-tag reveal">Guia Prático</div>
+    <h2 class="section-title reveal">Por que os Stories são vitais<br><span>para a sua ótica?</span></h2>
+
+    <div class="card reveal">
+      <span class="card-icon">🚪</span>
+      <div class="card-title">O Feed é a vitrine. Os Stories são a porta aberta.</div>
+      <div class="card-text">
+        Se o feed do seu Instagram (reels e posts) funciona como a vitrine da sua loja, os Stories funcionam como a porta aberta e o vendedor conversando com o cliente. O feed atrai novos visitantes, mas são os Stories que geram conexão, confiança e fecham vendas.
+      </div>
+    </div>
+
+    <h3 style="font-size:1.2rem; font-weight:700; margin:2.5rem 0 1.5rem;" class="reveal">📊 Os números não mentem: o poder dos Stories</h3>
+    <div class="metric-grid reveal">
+      <div class="metric-card">
+        <span class="metric-value text-teal">500M+</span>
+        <span class="metric-label">Contas usam Stories todo dia</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-green">58%</span>
+        <span class="metric-label">Ficam mais interessados na marca após ver um Story</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-yellow">1 em 5</span>
+        <span class="metric-label">Stories de marca gera 1 Direct de cliente em potencial</span>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="background: rgba(255,77,109,0.06); border-color: rgba(255,77,109,0.25);">
+      <strong style="color:var(--vermelho);">⚠️ O perigo do "perfil fantasma":</strong> imagine investir num anúncio lindo na TV (Reels) ou distribuir panfletos incríveis na rua (posts no feed). O cliente se interessa, vai até o endereço da sua ótica e encontra as portas fechadas e as luzes apagadas. É exatamente isso que acontece quando você faz Reels e posts, mas não posta nada nos Stories. Quando alguém descobre a Visão de Todos pelo feed, o primeiro reflexo é olhar a "bolinha" do perfil — sem aquele círculo colorido ao redor da foto, a impressão imediata é de loja fechada ou perfil morto. Os Stories mostram que a ótica está aberta, funcionando e pronta para atender hoje.
+    </div>
+
+    <h3 style="font-size:1.2rem; font-weight:700; margin:2.5rem 0 0.5rem;" class="reveal">💡 Ideias práticas: cronograma de 2 Stories por dia</h3>
+    <p class="section-desc reveal" style="margin-bottom:1.5rem;">Você não precisa passar o dia inteiro gravando. O segredo é a consistência — com apenas 2 stories simples por dia, você já transforma a percepção do seu cliente.</p>
+
+    <div class="ideia-list reveal">
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">01</span> ☀️ "Portas Abertas" (pela manhã)</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Rotina</span><span class="ideia-tag">Diário</span></div>
+          <p><strong>Como fazer:</strong> uma foto bonita da fachada da ótica, do balcão organizado ou da equipe sorrindo logo no início do dia.<br><br>
+          <strong>Legenda:</strong> "Bom dia! ☀️ Portas abertas por aqui e o café quentinho já está esperando por você. Que tal começar o dia escolhendo um óculos novo que combine perfeitamente com o seu estilo? Vem pra Visão de Todos!"</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">02</span> 🕶️ Bastidores de encomendas ("gatilho da procura")</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Prova de movimento</span><span class="ideia-tag">Vendas</span></div>
+          <p><strong>Como fazer:</strong> foto ou vídeo rápido dos óculos recém-montados no laboratório ou das caixinhas prontas para entrega/retirada, mostrando que a loja está movimentada.<br><br>
+          <strong>Legenda:</strong> "Mais um saindo do forno! 🕶️ Esse é o novo companheiro da [Nome do Cliente] que já está prontinho para entrega. Qualidade e precisão que você só encontra aqui." ou "Mais uma entrega de sucesso saindo por aqui hoje! 😍"</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">03</span> 🚨 Spoilers e novidades (chegando na loja)</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Novidade</span><span class="ideia-tag">Engajamento</span></div>
+          <p><strong>Como fazer:</strong> mostre caixas fechadas chegando, o processo de abertura de novos modelos ou detalhes de uma armação sofisticada bem de perto.<br><br>
+          <strong>Legenda:</strong> "Alerta de spoiler! 🚨 Acabaram de chegar novas armações por aqui. Só vou adiantar que os modelos estão incríveis e com um design super elegante. Quem aí quer ver primeiro? 👀" (deixe uma caixinha de perguntas/enquete)</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">04</span> 😉 Curiosidades & dicas rápidas</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Educativo</span><span class="ideia-tag">Autoridade</span></div>
+          <p><strong>Como fazer:</strong> uma foto simples de uma armação com um texto rápido ajudando o cliente a cuidar do seu óculos.<br><br>
+          <strong>Legenda:</strong> "Dica de ouro do dia: na hora de limpar suas lentes, evite usar a camiseta! Isso pode riscar a lente a longo prazo. Use sempre o lencinho de microfibra que enviamos na sua caixinha. Seus olhos agradecem! 😉💙"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<section>
+  <div class="container">
+    <div class="cta-section reveal">
+      <div class="hero-badge" style="display:inline-flex; margin-bottom:1.5rem;">🚀 Vamos começar?</div>
+      <h2>Pronta para colocar<br><em>o guia em prática?</em></h2>
+      <p>Comece hoje mesmo com 2 Stories simples e veja a diferença na percepção dos seus clientes.</p>
+      <div>
+        <a href="https://wa.me/?text=Olá! Vi o guia de Stories e quero tirar uma dúvida." class="btn-primary" target="_blank">
+          💬 Falar no WhatsApp
+        </a>
+        <a href="index.html" class="btn-secondary">📊 Ver Diagnóstico Completo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Guia Prático de Stories — <strong>Ótica Visão de Todos MOC</strong></p>
+  <p style="margin-top:0.5rem; font-size:0.78rem;">Preparado com base em dados de comportamento do Instagram e boas práticas do setor óptico.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function toggleIdeia(el) {
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
