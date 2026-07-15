@@ -447,138 +447,6 @@
   .venda-items li { font-size: 0.82rem; color: var(--texto-muted); display: flex; gap: 0.5rem; align-items: flex-start; }
   .venda-items li::before { content: '→'; color: var(--turquesa); flex-shrink: 0; margin-top: 1px; }
 
-  /* PROPOSTAS */
-  .propostas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 1.5rem;
-    align-items: stretch;
-    padding-top: 1rem;
-  }
-  .proposta-card {
-    background: var(--azul-card);
-    border: 1px solid var(--azul-borda);
-    border-radius: 20px;
-    padding: 2rem;
-    position: relative;
-    transition: transform 0.3s, border-color 0.3s;
-    display: flex;
-    flex-direction: column;
-  }
-  .proposta-card:hover { transform: translateY(-6px); }
-  .proposta-card.destaque {
-    border-color: var(--verde);
-    box-shadow: 0 0 40px rgba(168,230,61,0.15);
-    padding-top: 2.8rem;
-  }
-  .proposta-popular {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--verde), var(--turquesa));
-    color: var(--azul-escuro);
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 4px 16px;
-    border-radius: 100px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-  .proposta-nome {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--texto-muted);
-    margin-bottom: 0.8rem;
-  }
-  .proposta-preco {
-    font-size: 2.8rem;
-    font-weight: 900;
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .proposta-preco sup {
-    font-size: 1.2rem;
-    font-weight: 700;
-    vertical-align: super;
-    line-height: 0;
-  }
-  .proposta-preco .mes {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--texto-muted);
-  }
-  .proposta-card.destaque .proposta-preco { color: var(--verde); }
-  .proposta-card:not(.destaque) .proposta-preco { color: var(--texto); }
-  .proposta-desc {
-    font-size: 0.82rem;
-    color: var(--texto-muted);
-    margin: 0.8rem 0 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--azul-borda);
-  }
-  .proposta-lista {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    margin-bottom: 2rem;
-    flex: 1;
-  }
-  .proposta-lista li {
-    font-size: 0.85rem;
-    color: var(--texto);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-  .proposta-lista li .check {
-    color: var(--verde);
-    font-weight: 900;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .proposta-lista li .check-muted {
-    color: var(--texto-muted);
-    font-weight: 900;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .proposta-lista li span:last-child { color: var(--texto-muted); }
-  .proposta-lista li.destaque-item span:last-child { color: var(--texto); font-weight: 600; }
-  .btn-proposta {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 13px;
-    border-radius: 100px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .btn-proposta-primary {
-    background: linear-gradient(135deg, var(--verde), var(--turquesa));
-    color: var(--azul-escuro);
-  }
-  .btn-proposta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(168,230,61,0.3); }
-  .btn-proposta-outline {
-    background: transparent;
-    color: var(--texto);
-    border: 1px solid var(--azul-borda);
-  }
-  .btn-proposta-outline:hover { border-color: var(--turquesa); color: var(--turquesa); }
-  .proposta-nota {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--texto-muted);
-    margin-top: 2rem;
-  }
-  .proposta-nota strong { color: var(--turquesa); }
-
   /* CTA */
   .cta-section {
     background: linear-gradient(135deg, rgba(0,196,180,0.08), rgba(168,230,61,0.08));
@@ -746,7 +614,7 @@
       <li><a href="#ideias">Ideias</a></li>
       <li><a href="#prioridades">Prioridades</a></li>
       <li><a href="#top10">Top 10</a></li>
-      <li><a href="#propostas" style="color:var(--verde); font-weight:700;">Propostas</a></li>
+      <li><a href="#stories" style="color:var(--verde); font-weight:700;">Stories</a></li>
     </ul>
   </div>
 </nav>
@@ -1546,67 +1414,89 @@
 
 <div class="divider"></div>
 
-<!-- PROPOSTAS COMERCIAIS -->
-<section id="propostas" style="background: rgba(168,230,61,0.02);">
+<!-- GUIA DE STORIES -->
+<section id="stories" style="background: rgba(168,230,61,0.02);">
   <div class="container">
-    <div class="section-tag reveal">Investimento</div>
-    <h2 class="section-title reveal">Escolha o plano ideal<br><span>para a Visão de Todos</span></h2>
+    <div class="section-tag reveal">Guia Prático</div>
+    <h2 class="section-title reveal">Ative a presença digital<br><span>com Stories todos os dias</span></h2>
+    <p class="section-desc reveal">Como manter seu perfil vivo, engajar clientes e vender mais — preparado especialmente para a Ótica Visão de Todos.</p>
 
-    <div class="propostas-grid reveal">
-
-      <!-- PLANO ESSENCIAL -->
-      <div class="proposta-card">
-        <div class="proposta-nome">Plano Essencial</div>
-        <div class="proposta-preco"><sup>R$</sup>1080<span class="mes">/mês</span></div>
-        <div class="proposta-desc">Ideal para começar com consistência e profissionalismo sem abrir mão da qualidade.</div>
-        <ul class="proposta-lista">
-          <li><span class="check">✓</span><span>8 posts/mês no feed</span></li>
-          <li><span class="check">✓</span><span>4 reels/mês</span></li>
-          <li><span class="check">✓</span><span>Calendário editorial mensal</span></li>
-          <li><span class="check">✓</span><span>1 relatório de desempenho/mês</span></li>
-          <li><span class="check-muted">–</span><span>Campanhas sazonais</span></li>
-          <li><span class="check-muted">–</span><span>Reunião estratégica</span></li>
-        </ul>
-        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Essencial de gestão do Instagram (R$1080/mês). Podemos conversar?" class="btn-proposta btn-proposta-outline" target="_blank">Quero este plano</a>
+    <div class="card reveal">
+      <span class="card-icon">🚪</span>
+      <div class="card-title">Por que os Stories são vitais para a sua ótica?</div>
+      <div class="card-text">
+        Se o feed do seu Instagram (reels e posts) funciona como a vitrine da sua loja, os Stories funcionam como a porta aberta e o vendedor conversando com o cliente. O feed atrai novos visitantes, mas são os Stories que geram conexão, confiança e fecham vendas.
       </div>
-
-      <!-- PLANO PROFISSIONAL (destaque) -->
-      <div class="proposta-card destaque">
-        <div class="proposta-popular">⭐ Mais Popular</div>
-        <div class="proposta-nome">Plano Profissional</div>
-        <div class="proposta-preco"><sup>R$</sup>1.250<span class="mes">/mês</span></div>
-        <div class="proposta-desc">O equilíbrio perfeito entre volume, qualidade e gestão ativa. Recomendado para a Visão de Todos neste momento.</div>
-        <ul class="proposta-lista">
-          <li class="destaque-item"><span class="check">✓</span><span>12 posts/mês no feed</span></li>
-          <li class="destaque-item"><span class="check">✓</span><span>6 reels/mês</span></li>
-          <li class="destaque-item"><span class="check">✓</span><span>Calendário editorial mensal</span></li>
-          <li class="destaque-item"><span class="check">✓</span><span>1 relatórios de desempenho/mês</span></li>
-          <li class="destaque-item"><span class="check">✓</span><span>campanha sazonal/mês</span></li>
-          <li><span class="check-muted">–</span><span>Reunião estratégica mensal</span></li>
-        </ul>
-        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Profissional de gestão do Instagram (R$1.250/mês). Podemos conversar?" class="btn-proposta btn-proposta-primary" target="_blank">Quero este plano</a>
-      </div>
-
-      <!-- PLANO PREMIUM -->
-      <div class="proposta-card">
-        <div class="proposta-nome">Plano Premium</div>
-        <div class="proposta-preco"><sup>R$</sup>1.880<span class="mes">/mês</span></div>
-        <div class="proposta-desc">Gestão completa, estratégia avançada e presença dominante na região. Para quem quer crescer rápido.</div>
-        <ul class="proposta-lista">
-          <li><span class="check">✓</span><span>16 posts/mês</span></li>
-          <li class="check"><span class="check">✓</span><span>8 reels/mês</span></li>
-          <li><span class="check">✓</span><span>Gestão automatizada de DMs, comentários e WhatsApp Business</span></li>
-          <li><span class="check">✓</span><span>Relatório quinzenal com métricas detalhadas</span></li>
-          <li><span class="check">✓</span><span>Campanhas sazonais </span></li>
-          <li><span class="check">✓</span><span>Reunião estratégica mensal (1h)</span></li>
-        </ul>
-        <a href="https://wa.me/?text=Olá! Tenho interesse no Plano Premium de gestão do Instagram (R$1.880/mês). Podemos conversar?" class="btn-proposta btn-proposta-outline" target="_blank">Quero este plano</a>
-      </div>
-
     </div>
 
-    <div class="proposta-nota reveal">
-     <strong>Dúvidas? Fale pelo WhatsApp.</strong>
+    <h3 style="font-size:1.2rem; font-weight:700; margin:2.5rem 0 1.5rem;" class="reveal">📊 Os números não mentem: o poder dos Stories</h3>
+    <div class="metric-grid reveal">
+      <div class="metric-card">
+        <span class="metric-value text-teal">500M+</span>
+        <span class="metric-label">Contas usam Stories todo dia</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-green">58%</span>
+        <span class="metric-label">Ficam mais interessados na marca após ver um Story</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value text-yellow">1 em 5</span>
+        <span class="metric-label">Stories de marca gera 1 Direct de cliente em potencial</span>
+      </div>
+    </div>
+
+    <div class="highlight-box warning-box reveal" style="background: rgba(255,77,109,0.06); border-color: rgba(255,77,109,0.25);">
+      <strong style="color:var(--vermelho);">⚠️ O perigo do "perfil fantasma":</strong> imagine investir num anúncio lindo na TV (Reels) ou distribuir panfletos incríveis na rua (posts no feed). O cliente se interessa, vai até o endereço da sua ótica e encontra as portas fechadas e as luzes apagadas. É exatamente isso que acontece quando você faz Reels e posts, mas não posta nada nos Stories. Quando alguém descobre a Visão de Todos pelo feed, o primeiro reflexo é olhar a "bolinha" do perfil — sem aquele círculo colorido ao redor da foto, a impressão imediata é de loja fechada ou perfil morto. Os Stories mostram que a ótica está aberta, funcionando e pronta para atender hoje.
+    </div>
+
+    <h3 style="font-size:1.2rem; font-weight:700; margin:2.5rem 0 0.5rem;" class="reveal">💡 Ideias práticas: cronograma de 2 Stories por dia</h3>
+    <p class="section-desc reveal" style="margin-bottom:1.5rem;">Você não precisa passar o dia inteiro gravando. O segredo é a consistência — com apenas 2 stories simples por dia, você já transforma a percepção do seu cliente.</p>
+
+    <div class="ideia-list reveal">
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">01</span> ☀️ "Portas Abertas" (pela manhã)</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Rotina</span><span class="ideia-tag">Diário</span></div>
+          <p><strong>Como fazer:</strong> uma foto bonita da fachada da ótica, do balcão organizado ou da equipe sorrindo logo no início do dia.<br><br>
+          <strong>Legenda:</strong> "Bom dia! ☀️ Portas abertas por aqui e o café quentinho já está esperando por você. Que tal começar o dia escolhendo um óculos novo que combine perfeitamente com o seu estilo? Vem pra Visão de Todos!"</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">02</span> 🕶️ Bastidores de encomendas ("gatilho da procura")</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Prova de movimento</span><span class="ideia-tag">Vendas</span></div>
+          <p><strong>Como fazer:</strong> foto ou vídeo rápido dos óculos recém-montados no laboratório ou das caixinhas prontas para entrega/retirada, mostrando que a loja está movimentada.<br><br>
+          <strong>Legenda:</strong> "Mais um saindo do forno! 🕶️ Esse é o novo companheiro da [Nome do Cliente] que já está prontinho para entrega. Qualidade e precisão que você só encontra aqui." ou "Mais uma entrega de sucesso saindo por aqui hoje! 😍"</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">03</span> 🚨 Spoilers e novidades (chegando na loja)</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Novidade</span><span class="ideia-tag">Engajamento</span></div>
+          <p><strong>Como fazer:</strong> mostre caixas fechadas chegando, o processo de abertura de novos modelos ou detalhes de uma armação sofisticada bem de perto.<br><br>
+          <strong>Legenda:</strong> "Alerta de spoiler! 🚨 Acabaram de chegar novas armações por aqui. Só vou adiantar que os modelos estão incríveis e com um design super elegante. Quem aí quer ver primeiro? 👀" (deixe uma caixinha de perguntas/enquete)</p>
+        </div>
+      </div>
+      <div class="ideia-item" onclick="toggleIdeia(this)">
+        <div class="ideia-header">
+          <div class="ideia-title"><span class="ideia-num">04</span> 😉 Curiosidades & dicas rápidas</div>
+          <span class="ideia-expand">+</span>
+        </div>
+        <div class="ideia-body">
+          <div class="ideia-meta"><span class="ideia-tag">Educativo</span><span class="ideia-tag">Autoridade</span></div>
+          <p><strong>Como fazer:</strong> uma foto simples de uma armação com um texto rápido ajudando o cliente a cuidar do seu óculos.<br><br>
+          <strong>Legenda:</strong> "Dica de ouro do dia: na hora de limpar suas lentes, evite usar a camiseta! Isso pode riscar a lente a longo prazo. Use sempre o lencinho de microfibra que enviamos na sua caixinha. Seus olhos agradecem! 😉💙"</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1624,7 +1514,7 @@
         <a href="https://wa.me/?text=Olá! Vi o diagnóstico estratégico e quero começar a implementar as ações." class="btn-primary" target="_blank">
           💬 Falar no WhatsApp
         </a>
-        <a href="#propostas" class="btn-secondary">💼 Ver Propostas</a>
+        <a href="#stories" class="btn-secondary">📱 Ver Guia de Stories</a>
       </div>
     </div>
   </div>
